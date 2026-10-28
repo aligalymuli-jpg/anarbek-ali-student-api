@@ -1,0 +1,46 @@
+name: anarbek-ali-student-api
+
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: anarbek-ali-postgres
+    environment:
+      POSTGRES_DB: studentdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - anarbek_ali_pgdata:/var/lib/postgresql/data
+    networks:
+      - anarbek-ali-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d studentdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  student-api:
+    build: .
+    image: anarbek-ali-student-api:v1.0-anarbek-ali
+    container_name: anarbek-ali-app
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/studentdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespassword
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    networks:
+      - anarbek-ali-network
+
+volumes:
+  anarbek_ali_pgdata:
+    name: anarbek_ali_pgdata
+
+networks:
+  anarbek-ali-network:
+    name: anarbek-ali-network
+    driver: bridge
