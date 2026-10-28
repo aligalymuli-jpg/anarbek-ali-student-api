@@ -3,7 +3,7 @@ Spring Boot CRUD Application with PostgreSQL for DevOps Midterm.
 - **Student:** Anarbek Ali
 - **Group:** IT2308
 - **Student ID:** 41505
-- **Version:** v1.0-anarbek-ali
+- **Version:** v1.0-main (Main branch by Anarbek Ali)
 
 ## CRUD Operations Implemented by Anarbek Ali
 - `POST /api/students` - Create student
