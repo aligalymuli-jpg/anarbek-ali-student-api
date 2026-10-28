@@ -8,7 +8,7 @@ class StudentApiApplicationTests {
     void verifyStudentIdentity() {
         Student student = new Student("Anarbek Ali", "IT2308", "41505", "ali.anarbek@iitu.edu.kz");
         assertEquals("Anarbek Ali", student.getFullName());
-        assertEquals("WRONG_GROUP", student.getStudentGroup());
+        assertEquals("IT2308", student.getStudentGroup());
         assertEquals("41505", student.getStudentIdNumber());
     }
 }
